@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 /*
  * getUserMedia sample
@@ -87,6 +88,7 @@ class _GetUserMediaSampleState extends State<GetUserMediaSample> {
     }
   }
 
+//錄影
   void _startRecording() async {
     if (_localStream == null) throw Exception('Stream is not initialized');
     if (Platform.isIOS) {
@@ -95,9 +97,12 @@ class _GetUserMediaSampleState extends State<GetUserMediaSample> {
     }
     // TODO(rostopira): request write storage permission
     final storagePath = await getExternalStorageDirectory();
-    if (storagePath == null) throw Exception('Can\'t find storagePath');
+    // var appDocDir = await getTemporaryDirectory();
 
+    if (storagePath == null) throw Exception('Can\'t find storagePath');
+    //檔案存放路徑
     final filePath = storagePath.path + '/webrtc_sample/test.mp4';
+    // final filePath = appDocDir.path + 'recode.mp4';
     _mediaRecorder = MediaRecorder();
     setState(() {});
 
