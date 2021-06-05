@@ -4,6 +4,7 @@
 | 日期 | 進度 | 
 | -------- | -------- | 
 | 2021/06/03 | 找到錄影的code了，目前錄影檔案會存在sdk中，為：“mnt/sdacard/Android/data/<package name>/file/.."。這類檔案隨app刪除而刪除。在嘗試把錄影檔存進相簿| 
+| 2021/06/05 | 安裝好Xcode，準備進行IOS的build和錄製測試| 
 
 參考
 https://github.com/flutter-webrtc/flutter-webrtc 裡面的example
