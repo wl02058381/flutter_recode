@@ -5,7 +5,6 @@
 | -------- | -------- | 
 | 2021/06/03 | 找到錄影的code了，目前錄影檔案會存在sdk中，為：“mnt/sdacard/Android/data/<package name>/file/.."。這類檔案隨app刪除而刪除。在嘗試把錄影檔存進相簿| 
 | 2021/06/05 | 安裝好Xcode，準備進行IOS的build和錄製測試| 
-<<<<<<< HEAD
 | 2021/06/06 | 今日無進度，build IOS前要先將Podfile的ios版本改為11|
 | 2021/06/07 | 已使用IOS實機測試，按下錄影功能會顯示(錯誤碼:1)的錯誤，無法開啟錄影功能。根據https://github.com/flutter-webrtc/flutter-webrtc的功能顯示以及Functionality only available on Android這行錯誤說明，研判錄影功能在此套件尚未實現。|
 
@@ -43,9 +42,6 @@
 ---
 
 
-
-
-=======
 | 2021/06/06 | 今日無進度|
 
 參考
