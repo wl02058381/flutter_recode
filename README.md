@@ -5,13 +5,14 @@
 | -------- | -------- | 
 | 2021/06/03 | 找到錄影的code了，目前錄影檔案會存在sdk中，為：“mnt/sdacard/Android/data/<package name>/file/.."。這類檔案隨app刪除而刪除。在嘗試把錄影檔存進相簿| 
 | 2021/06/05 | 安裝好Xcode，準備進行IOS的build和錄製測試| 
+<<<<<<< HEAD
 | 2021/06/06 | 今日無進度，build IOS前要先將Podfile的ios版本改為11|
 | 2021/06/07 | 已使用IOS實機測試，按下錄影功能會顯示(錯誤碼:1)的錯誤，無法開啟錄影功能。根據https://github.com/flutter-webrtc/flutter-webrtc的功能顯示以及Functionality only available on Android這行錯誤說明，研判錄影功能在此套件尚未實現。|
 
 ---
 ![](https://i.imgur.com/jXF4ZtX.png)
 (錯誤碼:1)IOS報錯
-2021-06-06 23:28:30.211221+0800 Runner[2963:835136] [VERBOSE-2:ui_dart_state.cc(199)] Unhandled Exception: Unsupported operation: Functionality only available on Android
+[VERBOSE-2:ui_dart_state.cc(199)] Unhandled Exception: Unsupported operation: Functionality only available on Android
 #0      MethodChannelPathProvider.getExternalStoragePath (package:path_provider_platform_interface/src/method_channel_path_provider.dart:55:7)
 #1      getExternalStorageDirectory (package:path_provider/path_provider.dart:155:40)
 #2      _GetUserMediaSampleState._startRecording (package:recode/src/get_user_media_sample.dart:100:31)
@@ -43,6 +44,9 @@
 
 
 
+
+=======
+| 2021/06/06 | 今日無進度|
 
 參考
 https://github.com/flutter-webrtc/flutter-webrtc 裡面的example
