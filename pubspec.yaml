@@ -28,9 +28,9 @@ dependencies:
     sdk: flutter
   flutter_background: ^1.0.0
   # Required for MediaRecorder example
-  path_provider: ^2.0.1
-  flutter_webrtc: ^0.6.4
-  image_gallery_saver: ^1.6.9
+  path_provider: ^2.0.1 #路徑
+  flutter_webrtc: ^0.6.4 #RTC套件
+  image_gallery_saver: ^1.6.9 #保存圖片
 
 
 

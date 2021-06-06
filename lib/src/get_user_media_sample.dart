@@ -88,15 +88,17 @@ class _GetUserMediaSampleState extends State<GetUserMediaSample> {
     }
   }
 
-//錄影
+//開始錄影 解決ioS錄影
   void _startRecording() async {
     if (_localStream == null) throw Exception('Stream is not initialized');
-    if (Platform.isIOS) {
-      print('Recording is not available on iOS');
-      return;
-    }
+    // if (Platform.isIOS) {
+    //   //不支持IOS
+    //   print('Recording is not available on iOS');
+    //   return;
+    // }
     // TODO(rostopira): request write storage permission
     final storagePath = await getExternalStorageDirectory();
+    //getExternalStorageDirectory是取得SD卡根路徑
     // var appDocDir = await getTemporaryDirectory();
 
     if (storagePath == null) throw Exception('Can\'t find storagePath');
@@ -114,7 +116,7 @@ class _GetUserMediaSampleState extends State<GetUserMediaSample> {
       videoTrack: videoTrack,
     );
   }
-
+  //停止錄影
   void _stopRecording() async {
     await _mediaRecorder?.stop();
     setState(() {
@@ -138,7 +140,7 @@ class _GetUserMediaSampleState extends State<GetUserMediaSample> {
       print('[TORCH] Current camera does not support torch mode');
     }
   }
-
+  //切換相機
   void _toggleCamera() async {
     if (_localStream == null) throw Exception('Stream is not initialized');
 

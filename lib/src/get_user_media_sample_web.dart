@@ -14,11 +14,11 @@ class GetUserMediaSample extends StatefulWidget {
   @override
   _GetUserMediaSampleState createState() => _GetUserMediaSampleState();
 }
-
+//取得個人影音數據流
 class _GetUserMediaSampleState extends State<GetUserMediaSample> {
   MediaStream? _localStream;
-  final _localRenderer = RTCVideoRenderer();
-  bool _inCalling = false;
+  final _localRenderer = RTCVideoRenderer(); //RTC視頻渲染器
+  bool _inCalling = false; //預設是沒有calling
   MediaRecorder? _mediaRecorder;
 
   List<MediaDeviceInfo>? _cameras;
@@ -39,16 +39,16 @@ class _GetUserMediaSampleState extends State<GetUserMediaSample> {
   }
 
   @override
-  void deactivate() {
+  void deactivate() { //停用
     super.deactivate();
     if (_inCalling) {
-      _stop();
+      _stop(); //
     }
-    _localRenderer.dispose();
+    _localRenderer.dispose();//釋放WebRTC渲染器的記憶體
   }
 
   void initRenderers() async {
-    await _localRenderer.initialize();
+    await _localRenderer.initialize(); //初始化
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -82,36 +82,36 @@ class _GetUserMediaSampleState extends State<GetUserMediaSample> {
 
   Future<void> _stop() async {
     try {
-      await _localStream?.dispose();
+      await _localStream?.dispose(); //釋放串流記憶體
       _localStream = null;
-      _localRenderer.srcObject = null;
+      _localRenderer.srcObject = null; //渲染
     } catch (e) {
       print(e.toString());
     }
   }
-
+  //關閉攝像頭按鈕的方法
   void _hangUp() async {
     await _stop();
     setState(() {
       _inCalling = false;
     });
   }
-
+  //開始錄影
   void _startRecording() async {
     if (_localStream == null) throw Exception('Can\'t record without a stream');
     _mediaRecorder = MediaRecorder();
     setState(() {});
     _mediaRecorder?.startWeb(_localStream!);
   }
-
+  //停止錄影
   void _stopRecording() async {
     final objectUrl = await _mediaRecorder?.stop();
     setState(() {
       _mediaRecorder = null;
     });
-    print(objectUrl);
+    print(objectUrl); //錄影完的物件
     // ignore: unsafe_html
-    html.window.open(objectUrl, '_blank');
+    html.window.open(objectUrl, '_blank'); //用個新視窗開啟來
   }
 
   void _captureFrame() async {
@@ -120,12 +120,15 @@ class _GetUserMediaSampleState extends State<GetUserMediaSample> {
         .getVideoTracks()
         .firstWhere((track) => track.kind == 'video');
     final frame = await videoTrack.captureFrame();
+    //show截圖的Alert
     await showDialog(
         context: context,
         builder: (context) => AlertDialog(
               content:
+                  //截圖
                   Image.memory(frame.asUint8List(), height: 720, width: 1280),
               actions: <Widget>[
+                //關掉截圖的Alert
                 TextButton(
                   onPressed: Navigator.of(context, rootNavigator: true).pop,
                   child: Text('OK'),
@@ -141,16 +144,19 @@ class _GetUserMediaSampleState extends State<GetUserMediaSample> {
         title: Text('GetUserMedia API Test'),
         actions: _inCalling
             ? <Widget>[
+                //截圖按鈕
                 IconButton(
                   icon: Icon(Icons.camera),
                   onPressed: _captureFrame,
                 ),
+                //右上角的開始錄影按鈕跟結束錄影按鈕
                 IconButton(
                   icon: Icon(_isRec ? Icons.stop : Icons.fiber_manual_record),
                   onPressed: _isRec ? _stopRecording : _startRecording,
                 ),
+                //顯示能使用的攝影機裝置
                 PopupMenuButton<String>(
-                  onSelected: _switchCamera,
+                  onSelected: _switchCamera, 
                   itemBuilder: (BuildContext context) {
                     if (_cameras != null) {
                       return _cameras!.map((device) {
@@ -171,6 +177,7 @@ class _GetUserMediaSampleState extends State<GetUserMediaSample> {
               ]
             : null,
       ),
+      //有時候App會因應行動裝置擺放的方向不同而有相對應的介面，用Flutter提供的OrientationBuilder widget來實現這項功能。
       body: OrientationBuilder(
         builder: (context, orientation) {
           return Center(
@@ -184,19 +191,21 @@ class _GetUserMediaSampleState extends State<GetUserMediaSample> {
           );
         },
       ),
+      //右下角的電話按鈕，用來開啟畫面
       floatingActionButton: FloatingActionButton(
-        onPressed: _inCalling ? _hangUp : _makeCall,
+        onPressed: _inCalling ? _hangUp : _makeCall, //開關攝像頭
         tooltip: _inCalling ? 'Hangup' : 'Call',
-        child: Icon(_inCalling ? Icons.call_end : Icons.phone),
+        child: Icon(_inCalling ? Icons.call_end : Icons.phone),//變化電話的ｉcon
       ),
     );
   }
-
+  //開關攝像頭
   void _switchCamera(String deviceId) async {
     if (_localStream == null) return;
-
+    /// getVideoTracks()返回一个列表[MediaStreamTrack]对象，代表这个流中的视频轨道。
+    /// 该列表代表了这个流的轨道集中所有[MediaStreamTrack]对象的快照，这些对象的种类等于 "视频"。
     await Helper.switchCamera(
         _localStream!.getVideoTracks()[0], deviceId, _localStream);
-    setState(() {});
+    setState(() {});//更新狀態
   }
 }
