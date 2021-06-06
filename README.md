@@ -40,10 +40,6 @@
 #25     PlatformDispatcher._dispatchPointerDataPacket (dart:ui/platform_dispatcher.dart:282:7)
 #26     _dispatchPointerDataPacket (dart:ui/hooks.dart:96:31)
 ---
-
-
-| 2021/06/06 | 今日無進度|
-
 參考
 https://github.com/flutter-webrtc/flutter-webrtc 裡面的example
 https://pub.dev/packages/flutter_webrtc/install
