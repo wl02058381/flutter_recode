@@ -10,7 +10,7 @@
 
 ---
 ![](https://i.imgur.com/jXF4ZtX.png)
-(錯誤碼:1)IOS報錯
+(錯誤碼:1)IOS報錯:<br>
 [VERBOSE-2:ui_dart_state.cc(199)] Unhandled Exception: Unsupported operation: Functionality only available on Android
 #0      MethodChannelPathProvider.getExternalStoragePath (package:path_provider_platform_interface/src/method_channel_path_provider.dart:55:7)
 #1      getExternalStorageDirectory (package:path_provider/path_provider.dart:155:40)
