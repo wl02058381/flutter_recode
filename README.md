@@ -7,7 +7,7 @@
 | 2021/06/05 | 安裝好Xcode，準備進行IOS的build和錄製測試| 
 | 2021/06/06 | 今日無進度，build IOS前要先將Podfile的ios版本改為11|
 | 2021/06/07 | 已使用IOS實機測試，按下錄影功能會顯示(錯誤碼:1)的錯誤，無法開啟錄影功能。根據https://github.com/flutter-webrtc/flutter-webrtc的功能顯示以及Functionality only available on Android這行錯誤說明，研判錄影功能在此套件尚未實現。|
-
+| 2021/06/08 | 今日無進度|
 ---
 ![](https://i.imgur.com/jXF4ZtX.png)
 (錯誤碼:1)IOS報錯:<br>
