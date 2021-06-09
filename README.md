@@ -7,7 +7,8 @@
 | 2021/06/05 | 安裝好Xcode，準備進行IOS的build和錄製測試| 
 | 2021/06/06 | 今日無進度，build IOS前要先將Podfile的ios版本改為11|
 | 2021/06/07 | 已使用IOS實機測試，按下錄影功能會顯示(錯誤碼:1)的錯誤，無法開啟錄影功能。根據https://github.com/flutter-webrtc/flutter-webrtc的功能顯示以及Functionality only available on Android這行錯誤說明，研判錄影功能在此套件尚未實現。|
-| 2021/06/08 | 今日無進度|
+| 2021/06/08 | 今日無進度 |
+| 2021/06/09 | 找到flutter分段上傳套件(chunked_uploader)，現在正在寫Jquery-File-Upload的分段上傳實例 |
 ---
 ![](https://i.imgur.com/jXF4ZtX.png)
 (錯誤碼:1)IOS報錯:<br>
@@ -57,3 +58,10 @@ https://pub.dev/documentation/path_provider_platform_interface/latest/path_provi
 how-to-display-video-from-path-provider-in-flutter:
 https://stackoverflow.com/questions/59046107/how-to-display-video-from-path-provider-in-flutter
 
+docker:
+https://dockerlabs.collabnix.com/intermediate/workshop/DockerCompose/down_command.html
+
+分段上傳如何運作:
+https://github.com/blueimp/jQuery-File-Upload/wiki/Chunked-file-uploads
+flutter分段上傳套件:
+https://pub.dev/packages/chunked_uploader
