@@ -8,7 +8,8 @@
 | 2021/06/06 | 今日無進度，build IOS前要先將Podfile的ios版本改為11|
 | 2021/06/07 | 已使用IOS實機測試，按下錄影功能會顯示(錯誤碼:1)的錯誤，無法開啟錄影功能。根據https://github.com/flutter-webrtc/flutter-webrtc的功能顯示以及Functionality only available on Android這行錯誤說明，研判錄影功能在此套件尚未實現。|
 | 2021/06/08 | 今日無進度 |
-| 2021/06/09 | 找到flutter分段上傳套件(chunked_uploader)，現在正在寫Jquery-File-Upload的分段上傳實例 |
+| 2021/06/09 | 今日無進度 |
+| 2021/06/09 | 找到flutter分段上傳套件(chunked_uploader)測試中；現在正在寫Jquery-File-Upload的分段上傳實例 |
 ---
 ![](https://i.imgur.com/jXF4ZtX.png)
 (錯誤碼:1)IOS報錯:<br>
@@ -65,3 +66,101 @@ https://dockerlabs.collabnix.com/intermediate/workshop/DockerCompose/down_comman
 https://github.com/blueimp/jQuery-File-Upload/wiki/Chunked-file-uploads
 flutter分段上傳套件:
 https://pub.dev/packages/chunked_uploader
+```
+#interface
+import 'media_stream_track.dart';
+
+typedef MediaTrackCallback = void Function(MediaStreamTrack track);
+
+///https://w3c.github.io/mediacapture-main/#mediastream
+abstract class MediaStream {
+  MediaStream(this._id, this._ownerTag);
+  final String _id;
+  final String _ownerTag;
+
+  /// The event type of this event handler is addtrack.
+  MediaTrackCallback? onAddTrack;
+
+  /// The event type of this event handler is removetrack.
+  MediaTrackCallback? onRemoveTrack;
+
+  String get id => _id;
+
+  String get ownerTag => _ownerTag;
+
+  /// The active attribute return true if this [MediaStream] is active and false otherwise.
+  /// [MediaStream] is considered active if at least one of its [MediaStreamTracks] is not in the [MediaStreamTrack.ended] state.
+  /// Once every track has ended, the stream's active property becomes false.
+  bool? get active;
+
+  @deprecated
+  Future<void> getMediaTracks();
+
+  /// Adds the given [MediaStreamTrack] to this [MediaStream].
+  Future<void> addTrack(MediaStreamTrack track, {bool addToNative = true});
+
+  /// Removes the given [MediaStreamTrack] object from this [MediaStream].
+  Future<void> removeTrack(MediaStreamTrack track,
+      {bool removeFromNative = true});
+
+  /// Returns a List [MediaStreamTrack] objects representing all the tracks in this stream.
+  List<MediaStreamTrack> getTracks();
+
+  /// Returns a List [MediaStreamTrack] objects representing the audio tracks in this stream.
+  /// The list represents a snapshot of all the [MediaStreamTrack]  objects in this stream's track set whose kind is equal to 'audio'.
+  List<MediaStreamTrack> getAudioTracks();
+
+  /// Returns a List [MediaStreamTrack] objects representing the video tracks in this stream.
+  /// The list represents a snapshot of all the [MediaStreamTrack]  objects in this stream's track set whose kind is equal to 'video'.
+  /// 返回一个列表[MediaStreamTrack]对象，代表这个流中的视频轨道。
+  /// 该列表代表了这个流的轨道集中所有[MediaStreamTrack]对象的快照，这些对象的种类等于 "视频"。
+  List<MediaStreamTrack> getVideoTracks();
+
+  /// Returns either a [MediaStreamTrack] object from this stream's track set whose id is equal to trackId, or [StateError], if no such track exists.
+  MediaStreamTrack? getTrackById(String trackId) {
+    for (var item in getTracks()) {
+      if (item.id == trackId) {
+        return item;
+      }
+    }
+    return null;
+  }
+
+  /// Clones the given [MediaStream] and all its tracks.
+  MediaStream clone();
+
+  Future<void> dispose() async {
+    return Future.value();
+  }
+}
+
+```
+```
+import '../flutter_webrtc.dart';
+import 'interface/enums.dart';
+import 'interface/media_recorder.dart' as _interface;
+import 'interface/media_stream.dart';
+import 'interface/media_stream_track.dart';
+
+class MediaRecorder extends _interface.MediaRecorder {
+  MediaRecorder() : _delegate = mediaRecorder();
+  final _interface.MediaRecorder _delegate;
+
+  @override
+  Future<void> start(String path,
+          {MediaStreamTrack? videoTrack, RecorderAudioChannel? audioChannel}) =>
+      _delegate.start(path, videoTrack: videoTrack, audioChannel: audioChannel);
+
+  @override
+  Future stop() => _delegate.stop();
+
+  @override
+  void startWeb(
+    MediaStream stream, {
+    Function(dynamic blob, bool isLastOne)? onDataChunk,
+    String? mimeType,
+  }) =>
+      _delegate.startWeb(stream,
+          onDataChunk: onDataChunk, mimeType: mimeType ?? 'video/webm');
+}
+```
