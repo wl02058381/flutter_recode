@@ -88,14 +88,14 @@ class _GetUserMediaSampleState extends State<GetUserMediaSample> {
     }
   }
 
-//開始錄影 解決ioS錄影
+//開始錄影 解決IOS錄影
   void _startRecording() async {
     if (_localStream == null) throw Exception('Stream is not initialized');
-    // if (Platform.isIOS) {
-    //   //不支持IOS
-    //   print('Recording is not available on iOS');
-    //   return;
-    // }
+    if (Platform.isIOS) {
+      //不支持IOS
+      print('Recording is not available on iOS');
+      return;
+    }
     // TODO(rostopira): request write storage permission
     final storagePath = await getExternalStorageDirectory();
     //getExternalStorageDirectory是取得SD卡根路徑
